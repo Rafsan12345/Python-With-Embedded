@@ -1,0 +1,44 @@
+import speech_recognition as sr
+import pyttsx3
+import serial
+import time
+arduino = serial.Serial('COM3', 9600)
+time.sleep(2)
+def voice():
+    listener = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("lisetning.........")
+        voice = listener.listen(source)
+        x = listener.recognize_google(voice)
+        return x
+
+'''d = pyttsx3.init()
+d.say("Tisha ")
+d.runAndWait()
+'''
+
+while True:
+    try:
+        comand = voice()
+        if 'start' in comand:
+            arduino.write(b'1')
+            d = pyttsx3.init()
+            d.say("Yes Sir Your light is ON now")
+            d.runAndWait()
+            print("LED  turned ON")
+
+        elif 'stop' in comand:
+            arduino.write(b'0')
+            d = pyttsx3.init()
+            d.say("Yes Sir Your light is OFF now")
+            d.runAndWait()
+            print("LED turned OFF")
+
+        else:
+            print("Dont Match")
+
+    except:
+        pass
+
+
+
