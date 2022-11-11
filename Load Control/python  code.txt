@@ -1,0 +1,66 @@
+import serial
+import time
+
+arduino = serial.Serial('COM3', 9600)
+time.sleep(2)
+
+print("Welcome to password based Load Control System")
+
+while 1:
+
+    datafromUser = input("Input your password::")
+
+    if datafromUser == '1002':
+        arduino.write(b'1')
+        print("Load 1 is on now")
+
+
+    elif datafromUser == '2002':
+        arduino.write(b'2')
+        print("Load 1 is off now")
+
+
+    elif datafromUser == '3002':
+        arduino.write(b'3')
+        print("Load 2 is on now")
+
+    elif datafromUser == '4002':
+        arduino.write(b'4')
+        print("Load 2 is off now")
+
+
+    elif datafromUser == '5002':
+        arduino.write(b'5')
+        print("Load 3 is on now")
+
+
+    elif datafromUser == '6002':
+        arduino.write(b'6')
+        print("Load 3 is off now")
+
+
+
+    elif datafromUser == '7002':
+        arduino.write(b'7')
+        print("Load 4 is on now")
+
+
+    elif datafromUser == '8002':
+        arduino.write(b'8')
+        print("Load 4 is off now")
+
+    elif datafromUser == '9002':
+        arduino.write(b'9')
+        print("All Load  is on now")
+
+
+    elif datafromUser == '0002':
+        arduino.write(b'0')
+        print("All Load  is off now")
+
+
+
+
+    else:
+        print("Dont Mach try again ")
+
