@@ -1,0 +1,28 @@
+import cv2
+import mediapipe as mp
+import serial
+import time
+
+cam = cv2.VideoCapture(0)
+face = mp.solutions.face_mesh.FaceMesh()
+
+arduino = serial.Serial('COM3', 9600)
+time.sleep(2)
+
+
+
+while True:
+    _,frame = cam.read()
+    rgb = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+    output = face.process(rgb)
+    land = output.multi_face_landmarks
+    f = type(land)
+
+    cv2.imshow('eye mouse',frame)
+    cv2.waitKey(1)
+    if f == list:
+        arduino.write(b'1')
+        print("yes")
+    else:
+        arduino.write(b'0')
+        print("NO")
