@@ -1,0 +1,13 @@
+import cvzone
+import cv2
+
+cap = cv2.VideoCapture(0)
+myClassifier = cvzone.Classifier('Mymodel/keras_model.h5','Mymodel/labels.txt')
+while True:
+    _, img = cap.read()
+    predictions,index = myClassifier.getPrediction(img)
+    #print(predictions,index)
+    print(index)
+    #print(predictions)
+    cv2.imshow ("image",img)
+    cv2.waitKey(1)
