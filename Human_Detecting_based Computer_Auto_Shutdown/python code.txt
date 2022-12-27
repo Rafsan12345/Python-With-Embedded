@@ -1,0 +1,49 @@
+import cv2
+import time
+import numpy as np
+import os
+import pyautogui
+import mediapipe as mp
+cap = cv2.VideoCapture(0)
+face_detector = mp.solutions.face_mesh.FaceMesh(refine_landmarks=True)
+def chek():
+    face_detector = mp.solutions.face_mesh.FaceMesh(refine_landmarks=True)
+    _, frame = cap.read()
+    frame = cv2.flip(frame, 1)
+    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    output = face_detector.process(rgb_frame)
+    #landmark_points = output.multi_face_landmarks
+    landmark_points = output.multi_face_landmarks
+    if landmark_points:
+        return 1
+    else:
+        return 0
+
+while True:
+    _,frame = cap.read()
+    frame = cv2.flip(frame,1)
+    rgb_frame = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+    output = face_detector.process(rgb_frame)
+    landmark_points = output.multi_face_landmarks
+
+    if landmark_points:
+        print("Detect")
+    else:
+        print("NONE")
+        time.sleep(30)
+        c = chek()
+        if c == 1:
+            print("Again detect")
+        else:
+            print("Shutdown")
+            #break
+            os.system("shutdown /s /t 1")
+
+    cv2.imshow("img", frame)
+    cv2.waitKey(1)
+
+
+
+
+
+
