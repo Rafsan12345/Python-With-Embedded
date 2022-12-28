@@ -1,0 +1,23 @@
+import cvzone
+import cv2
+import urllib.request as ur
+import numpy as np
+import cv2
+from PIL import Image
+import time
+
+url = 'http://192.168.0.101:8080/shot.jpg'
+#cap = cv2.VideoCapture(0)
+myClassifier = cvzone.Classifier('Mymodel/keras_model.h5','Mymodel/labels.txt')
+while True:
+    img = ur.urlopen(url)
+    img_bytes = bytearray(img.read())
+    img_np = np.array(img_bytes, dtype=np.uint8)
+    frame = cv2.imdecode(img_np, -1)
+    frame = cv2.flip(frame,1)
+    predictions,index = myClassifier.getPrediction(frame)
+    #print(predictions,index)
+    print(index)
+    #print(predictions)
+    cv2.imshow ("image",frame)
+    cv2.waitKey(1)
